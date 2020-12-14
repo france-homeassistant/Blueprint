@@ -1,0 +1,46 @@
+blueprint:
+  name: Éteignez le chargement une fois l'appareil chargé
+  description: Éteignez la prise connectée une fois que l'appareil est chargé à un pourcentage donné.
+  domain: automation
+  input:
+    switch:
+      name: Prise connectée
+      description: Prise connectée à éteindre
+      selector:
+        entity:
+          domain: switch
+
+    phone_battery:
+      name: Batterie du téléphone
+      description: Capteur de % de batterie
+      selector:
+        entity:
+          domain: sensor
+          device_class: battery
+
+    charged_percent:
+      name: Pourcentage de charge
+      description: Chargez l'appareil jusqu'à ce pourcentage
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
+          mode: "box"
+      default: 100
+
+variables:
+  phone_battery: !input phone_battery
+  charged_percent: !input charged_percent
+
+trigger:
+  - platform: state
+    entity_id: !input phone_battery
+
+condition:
+  condition: template
+  value_template: "{{ (states(phone_battery)|int) >= (charged_percent|int) }}"
+
+action:
+  - service: switch.turn_off
+    entity_id: !input switch
