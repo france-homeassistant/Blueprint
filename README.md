@@ -3,8 +3,8 @@ Blueprint est un schéma d'automatisation avec certaines parties marquées comme
 
 ---
 
-# Rejoignez nous sur Facebook
+### Rejoignez nous sur Facebook
 https://www.facebook.com/groups/homeassistantentraidefrance
 
-# Tutoriels en français 
+### Tutoriels en français 🇫🇷
 https://france-homeassistant.fr/
