@@ -1,0 +1,24 @@
+blueprint:
+  name: Extinction de la prise une fois le téléphone chargé
+  description: Éteignez la prise connectée une fois que l'appareil est chargé à un pourcentage donné.
+  domain: automation
+  input:
+    switch:
+      name: Prise connectée
+      description: Prise connectée à éteindre
+      selector:
+        entity:
+          domain: switch
+
+    phone_battery:
+      name: Batterie du téléphone
+      description: Capteur du pourcentage de la batterie du téléphone
+      selector:
+        entity:
+          domain: sensor
+          device_class: battery
+
+    charged_percent:
+      name: Pourcentage à atteindre
+      description: Pourcentage que la batterie doit atteindre
+      selector:
