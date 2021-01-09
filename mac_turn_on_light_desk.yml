@@ -1,0 +1,42 @@
+blueprint:
+  name: Allumer la lumière quand le Mac est actif
+  description: La lumière de votre bureau s'allume lorsque la nuit tombe lorsque vous travaillez sur votre Mac.
+  domain: automation
+  input:
+    apple_mac:
+      name: Votre Mac
+      description: Le Mac que vous utilisez sur votre bureau.
+      selector:
+        entity:
+          domain: binary_sensor
+    target_light:
+      name: Lumière
+      description: La lumière de votre bureau.
+      selector:
+        target:
+          entity:
+            domain: light
+    device_tracker:
+      name: La localisation de votre Mac
+      description: Le device_tracker de votre mac afin de vérifier que vous êtes chez vous
+      selector:
+        entity:
+          domain: device_tracker
+trigger:
+  - type: turned_on
+    platform: device
+    entity_id: !input apple_mac
+    domain: binary_sensor
+condition:
+  - condition: sun
+    after: sunset
+    before: sunrise
+  - condition: device
+    domain: device_tracker
+    entity_id: !input device_tracker
+    type: is_home
+action:
+  - type: turn_on
+    entity_id: !input target_light
+    domain: light
+    brightness_pct: !input target_brightness
