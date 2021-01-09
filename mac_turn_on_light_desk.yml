@@ -1,17 +1,17 @@
 blueprint:
   name: Allumer la lumière quand le Mac est actif
-  description: La lumière de votre bureau s'allume lorsque la nuit tombe lorsque vous travaillez sur votre Mac.
+  description: La lumière de votre bureau s'allume quand la nuit tombe lorsque vous travaillez sur votre Mac.
   domain: automation
   input:
     apple_mac:
       name: Votre Mac
-      description: Le Mac que vous utilisez sur votre bureau.
+      description: Le Mac que vous utilisez sur votre bureau (Exemple binary_sensor.macbook_active)
       selector:
         entity:
           domain: binary_sensor
     target_light:
-      name: Lumière
-      description: La lumière de votre bureau.
+      name: L'ampoule
+      description: La lumière de votre bureau
       selector:
         target:
           entity:
@@ -26,8 +26,12 @@ blueprint:
       name: La luminosité souhaitée
       description: Il est conseillé d'utiliser une faible luminosité la nuit
       selector:
-        entity:
-          domain: light
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
+          mode: "box"
+      default: 50
 trigger:
   - type: turned_on
     platform: device
