@@ -22,6 +22,12 @@ blueprint:
       selector:
         entity:
           domain: device_tracker
+    target_brightness:
+      name: La luminosité souhaitée
+      description: Il est conseillé d'utiliser une faible luminosité la nuit
+      selector:
+        entity:
+          domain: light
 trigger:
   - type: turned_on
     platform: device
