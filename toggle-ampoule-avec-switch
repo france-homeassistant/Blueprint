@@ -1,0 +1,27 @@
+blueprint:
+  name: Toggle Ampoule avec un switch
+  description: Allumer/eteindre une ampoule avec un interrupteur
+  domain: automation
+  input:
+    light:
+      name: Lumière
+      description: Votre ampoule
+      selector:
+        target:
+          entity:
+            domain: light
+    inter:
+      name: Lumière
+      description: Interrupteur qui controlera l'ampoule
+      selector:
+        target:
+          entity:
+            domain: switch
+  
+trigger:
+- platform: device
+  type: turned_on
+  entity_id: !input inter
+action:
+- type: toggle
+  target: !input light
